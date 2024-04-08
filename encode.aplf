@@ -1,0 +1,17 @@
+ r←a encode(h p);secret;alg;tkn;eh;ep;d;gsig;_
+ (secret alg)←a
+
+ :If alg≡'HS256'
+     eh ep←base64¨⎕UCS¨⎕JSON¨h p
+     eh ep←~∘'='¨eh ep
+     _ gsig←DCL.Crypt.HMAC_SHA256 secret DCL.Crypt.Encrypt eh,'.',ep
+     gsig←~∘'='base64 ⎕UCS gsig
+ :Else
+     gsig←''
+ :EndIf
+
+ :If ~gsig≡''
+     r←(,/eh,'.',¨ep gsig)
+ :Else
+     r←(h p'')
+ :EndIf

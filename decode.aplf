@@ -1,0 +1,25 @@
+ r←secret decode tkn;h;p;alg;eh;ep;d;s;gsig;_
+ tkn←base64¨'.'(≠⊆⊢)tkn
+ :If 3≠≢tkn
+     1↓2↑⎕UCS¨tkn ⍝ unencrypted token
+ :EndIf
+
+ h p s←tkn
+ s←~∘'='base64 s
+ h p←⎕JSON¨⎕UCS¨h p
+ alg←h.alg
+ eh ep←base64¨⎕UCS¨⎕JSON¨h p
+ eh ep←~∘'='¨eh ep
+
+ :If alg≡'HS256'
+     _ gsig←DCL.Crypt.HMAC_SHA256 secret DCL.Crypt.Encrypt eh,'.',ep
+     gsig←~∘'='base64 ⎕UCS gsig
+ :Else
+     gsig←''
+ :EndIf
+
+ :If gsig≡s
+     r←(h p s)
+ :Else
+     r←(h p'')
+ :EndIf
