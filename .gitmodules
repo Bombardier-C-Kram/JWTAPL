@@ -1,0 +1,3 @@
+[submodule "DCL"]
+	path = DCL
+	url = https://github.com/Dyalog/DCL.git
