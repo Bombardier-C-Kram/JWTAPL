@@ -14,7 +14,7 @@ A WIP library for Dyalog APL to allow for encoding and decoding of JSON Web Toke
     h.(alg typ)←'HS256' 'JWT'
     p←⎕NS ''
     p.(name role data)←'John Doe' 'admin' 'Cool Data Goes Here'
-    j←'MySecret' #.encode h p
+    j←'MySecret' #.JWTAPL.encode h p
     ⍝ Returns a character vector of the JWT token.
 ```
 
