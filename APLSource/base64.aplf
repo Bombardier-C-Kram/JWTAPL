@@ -1,5 +1,5 @@
  base64←{⎕IO ⎕ML←0 1             ⍝ Base64 encoding and decoding as used in MIME.
-
+     ⍝ From Dyalog DFNS
      chars←'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
      bits←{,⍉(⍺⍴2)⊤⍵}                   ⍝ encode each element of ⍵ in ⍺ bits,
                                        ⍝   and catenate them all together

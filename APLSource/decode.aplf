@@ -12,8 +12,8 @@
  eh ep←~∘'='¨eh ep
 
  :If alg≡'HS256'
-     _ gsig←DCL.Crypt.HMAC_SHA256 secret DCL.Crypt.Encrypt eh,'.',ep
-     gsig←~∘'='base64 ⎕UCS gsig
+     gsig←secret HmacSha256 eh,'.',ep
+     gsig←~∘'='base64 gsig
  :Else
      gsig←''
  :EndIf
