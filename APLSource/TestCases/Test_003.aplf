@@ -1,0 +1,15 @@
+ R←Test_003(debugFlag batchFlag);⎕TRAP
+⍝ Test Decode with an unsigned token
+⍝ *** Watch out: assumes that the instance of Tester2 is called "T".
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+⍝ Establish preconditions...
+ j1←⎕json'' ##.JWTAPL.API.Decode 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ'
+ j2←⎕json'abcdefgsecret' ##.JWTAPL.API.Decode 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ'
+
+ →T.FailsIf j1≢'[{"alg":"HS256","typ":"JWT"},{"iat":1516239022,"name":"John Doe","sub":"1234567890"},0]'
+ →T.FailsIf j2≢'[{"alg":"HS256","typ":"JWT"},{"iat":1516239022,"name":"John Doe","sub":"1234567890"},0]'
+
+
+ R←T._OK

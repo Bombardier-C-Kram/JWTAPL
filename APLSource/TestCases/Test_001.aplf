@@ -1,0 +1,12 @@
+ R←Test_001(debugFlag batchFlag);⎕TRAP
+⍝ Test Decode of a Token with a signature
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+⍝ Establish preconditions...
+ j←⎕json'your-apl-jwt-secret-goes-here==>' ##.JWTAPL.API.Decode 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ.2JGObd9SO3x3nxPnJ1XZO-6eRKPBMScb48LJD4KfBDI'
+
+
+ →T.FailsIf j≢'[{"alg":"HS256","typ":"JWT"},{"iat":1516239022,"name":"John Doe","sub":"1234567890"},1]'
+
+ R←T._OK

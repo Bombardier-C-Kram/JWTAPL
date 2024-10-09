@@ -1,6 +1,0 @@
- main←{
-    token←'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ.2JGObd9SO3x3nxPnJ1XZO-6eRKPBMScb48LJD4KfBDI'
-     ⍝_←#.DCL.Crypt.Init'DCL/'
-     'your-apl-jwt-secret-goes-here==>' decode token
-
- }

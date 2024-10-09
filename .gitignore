@@ -2,10 +2,10 @@ aplcore
 /Dist/
 CONTINUE.dws
 conga.crash
-/packages/*
+/tatin-dependencies/*
 /TestResults/
-!/packages/apl-dependencies.txt
-!/packages/apl-buildlist.json
-/packages_dev/*
-!/packages_dev/apl-dependencies.txt
-!/packages_dev/apl-buildlist.json
+!/tatin-dependencies/apl-dependencies.txt
+!/tatin-dependencies/apl-buildlist.json
+/tatin-dependencies_dev/*
+!/tatin-dependencies_dev/apl-dependencies.txt
+!/tatin-dependencies_dev/apl-buildlist.json

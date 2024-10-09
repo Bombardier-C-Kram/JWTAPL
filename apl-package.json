@@ -1,5 +1,5 @@
 {
-  api: "",
+  api: "API",
   assets: "",
   description: "Encode and Decode JWT Tokens in Dyalog APL",
   documentation: "",
@@ -16,8 +16,8 @@
   os_mac: 1,
   os_win: 1,
   project_url: "https://github.com/Bombardier-C-Kram/JWTAPL",
-  source: "APLSource",
+  source: "APLSource/JWTAPL",
   tags: "jwt,json,web,token",
   userCommandScript: "",
-  version: "0.1.0+1",
+  version: "0.1.0+2",
 }

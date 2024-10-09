@@ -1,0 +1,17 @@
+ R←Test_004(debugFlag batchFlag);⎕TRAP
+⍝ Test Encode Token
+⍝ *** Watch out: assumes that the instance of Tester2 is called "T".
+ ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+⍝ Establish preconditions...
+ header←⎕ns''
+ header.(alg typ)←'HS256' 'JWT'
+ payload←⎕ns''
+ payload.(name group)←'John Doe' 'admin'
+
+ j←'mysecret' ##.JWTAPL.API.Encode header payload
+
+ →T.FailsIf j≢'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJncm91cCI6ImFkbWluIiwibmFtZSI6IkpvaG4gRG9lIn0.b2N2n-dOBBsuQVUSrxuLfGicWwTzw4FmdDu9pwUjJZk'
+
+ R←T._OK
