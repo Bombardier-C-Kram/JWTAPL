@@ -1,4 +1,5 @@
 #!/usr/bin/dyalogscript DYALOG_INITSESSION=1
+⎕SE.(⍎⊃2⎕FIX'/StartupSession.aplf',⍨2⎕NQ#'GetEnvironment' 'DYALOG')
 ⎕PW←500 
 ⎕SE.UCMD 'Cider.Version'
 ⎕SE.Cider.DEVELOPMENT←1
