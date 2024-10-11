@@ -1,2 +1,2 @@
-#!/usr/local/bin/dyalogscript
+#!/usr/bin/dyalogscript
 ⎕SE.UCMD 'Tools.Activate all'

@@ -1,4 +1,4 @@
-#!/usr/local/bin/dyalogscript
+#!/usr/bin/dyalogscript
 ⎕PW←500 
 ⎕SE.UCMD 'Cider.Version'
 ⎕SE.Cider.DEVELOPMENT←1
