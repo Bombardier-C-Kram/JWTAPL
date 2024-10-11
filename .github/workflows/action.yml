@@ -28,6 +28,6 @@ jobs:
       - name: Activate Tatin and Cider
         run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
-          "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
-          "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          dyalogscript "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          dyalogscript "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
       
