@@ -1,4 +1,4 @@
-#!/usr/bin/dyalogscript
+#!/usr/bin/dyalogscript DYALOG_INITSESSION=1
 ⎕PW←500 
 ⎕SE.UCMD 'Cider.Version'
 ⎕SE.Cider.DEVELOPMENT←1
