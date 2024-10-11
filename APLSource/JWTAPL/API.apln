@@ -1,5 +1,5 @@
 :Namespace API
-    ∇ r←key hmacsha256 data;Init;Update;digest;ctx;Digest;dll
+    ∇ digest←key hmacsha256 data;Init;Update;digest;ctx;Digest;dll
       ⍝ From Bjørn and Brian.
       ⍝ Uses conga ssl shared library.
       ⍝ ctx is 3×112
@@ -11,7 +11,6 @@
       ctx←Init(336)(≢key)key
       ctx←Update ctx(⍴data)data
       ctx digest←Digest ctx 32 32 
-      r←digest
     ∇
     
     base64←{⎕IO ⎕ML←0 1             ⍝ Base64 encoding and decoding as used in MIME.
@@ -33,54 +32,56 @@
         cats''∘four¨24 part 8 bits ⍵
     }
     
-    ∇ r←secret Encode(h p);alg;eh;ep;gsig 
-      ⍝ Encode needs a secret (char vector), and a header and a payload namespace
+    ∇ r←secret Encode(h p);eh;ep;gsig 
+      ⍝ Encode needs a (optional secret (char vector)), and a header and a payload namespace
       :If 0={(≢⍵)-(⊂'alg')⍳⍨⍵}h.⎕NL-⍳9
-        ⍝ Header MUST contain an algorithm.  
+        ⍝ Header MUST contain an algorithm. Can even be 'none', but must say that  
         ⎕SIGNAL⊂('EN' 510)('Message' 'Algorithm Not Provided')
-        ⍝h.alg←'HS256'
       :EndIf
-      alg←h.alg
-      eh ep←base64¨⎕UCS¨⎕JSON¨h p ⍝ Encode header and payload
-      eh ep←~∘'='¨eh ep
+      (eh ep)←~∘'='¨base64¨⎕UCS¨⎕JSON¨h p ⍝ Encode header and payload
 
-      :If (0<≢secret)∧(alg≡'HS256') ⍝ Can support more algorithms in the future
+      :If (0<≢secret)∧(h.alg≡'HS256') ⍝ Can support more algorithms in the future
         gsig←secret hmacsha256 eh,'.',ep
         gsig←~∘'='base64 gsig
-      :Else
-        ⍝ Algorithm not supported, this an unsigned token
+      :ElseIf (h.alg≡'none')
+        ⍝ This an unsigned token
         gsig←''
+      :Else
+        ⍝ Algorithm not supported.
+        ⎕SIGNAL⊂('EN' 511)('Message' 'Algorithm Not Supported')
       :EndIf
 
       :If gsig≢''
-        r←(∊,/eh,'.',¨ep gsig) ⍝ header.payload.signature
+        r←∊eh,'.',ep,'.'gsig ⍝ header.payload.signature
       :Else
-        r←(eh,'.',ep) ⍝ header.payload
+        r←eh,'.',ep ⍝ header.payload
       :EndIf
     ∇
     
     
-    ∇ r←secret Decode tkn;h;p;alg;eh;ep;d;s;gsig;_
+    ∇ r←secret Decode tkn;h;p;alg;eh;ep;d;s;gsig
       tkn←'.'(≠⊆⊢)tkn
       :If 3≠≢tkn
-        h p←⎕JSON¨⎕UCS¨base64¨tkn ⍝ This is an unencrypted token, so it has no signature.
-        r←h p 0
+        (h p)←⎕JSON¨⎕UCS¨base64¨tkn ⍝ This is an unencrypted token, so it has no signature.
+        r←h p 0 
         :Return
       :EndIf
 
-      eh ep s←tkn
+      (eh ep s)←tkn
       s←(~∘'=')s
-      h p←⎕JSON¨⎕UCS¨base64¨eh ep
+      (h p)←⎕JSON¨⎕UCS¨base64¨eh ep
       alg←h.alg
-      eh ep←~∘'='¨eh ep
+      (eh ep)←~∘'='¨eh ep
 
       :If alg≡'HS256'
         gsig←secret hmacsha256 eh,'.',ep
         gsig←~∘'='base64 gsig
       :Else
-        gsig←''
+        gsig←'' ⍝ We don't support this algorithm, so the signature does not exist
+        ⍝ TODO: Maybe specify that this might be a valid signature, but we don't know?
+        ⍝ I don't see why someone would have a JWT that does not use HS256, but can't assume...
       :EndIf
 
-      r←h p (gsig≡s)
+      r←h p (gsig≡s) ⍝ Header Payload and IsValidSignature
     ∇
 :EndNamespace

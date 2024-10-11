@@ -6,7 +6,7 @@ JWTAPL is a robust APL library designed for encoding and decoding JSON Web Token
 
 - **Encode JWTs:** Create JWTs with customizable headers and payloads.
 - **Decode JWTs:** Verify and extract information from JWTs using your secret key.
-- **Handle Unencrypted Tokens:** Supports encoding without a secret or algorithm, resulting in unencrypted tokens.
+- **Handle Unencrypted Tokens:** Supports encoding without an algorithm, resulting in unencrypted tokens.
 - **Easy Integration:** Seamlessly integrates into APL projects with simple installation and usage commands.
 - **Comprehensive Testing:** Includes a suite of tests using the Tester2 framework to ensure reliability.
 
@@ -50,22 +50,22 @@ token ← secret JWTAPL.Encode h p
 
 - **Unencrypted Tokens:**
 
-  If you omit the secret key or the algorithm in the header, `Encode` will generate an unencrypted token. Unencrypted tokens consist only of the header and payload without a signature.
+  If you set the algorithm as 'none' in the header, `Encode` will generate an unencrypted token. Unencrypted tokens consist only of the header and payload without a signature.
 
   ```apl
   ⎕NS h ← ''
-  h.(alg typ) ← '' 'JWT'  ⍝ No algorithm provided
+  h.(alg typ) ← 'none' 'JWT'  ⍝ 'none' algorithm provided
 
   ⎕NS p ← ''
-  p.(name group) ← 'Jane Doe' 'user'
+  p.(name group) ← 'John Doe' 'admin'
 
-  token ← '' JWTAPL.Encode h p
+  token ← '' JWTAPL.Encode h p ⍝ The secret provided to the function is not used in this case. 
   ```
 
   **Resulting Token:**
 
   ```
-  'eyJhbGciOiIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSmFuZSBEb2UiLCJncm91cCI6InVzZXIifQ'
+  'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJncm91cCI6ImFkbWluIiwibmFtZSI6IkpvaG4gRG9lIn0'
   ```
 
 ### Decoding a JWT
@@ -86,7 +86,7 @@ result ← secret JWTAPL.Decode token
   
   - **Header Namespace:** Contains metadata about the token, such as the signing algorithm (`alg`) and token type (`typ`).
   - **Payload Namespace:** Contains the claims or data embedded within the token, such as `name`, `group`, etc.
-  - **Is Valid Signature:** An indicator (`1` or `0`) showing whether the token's signature is valid (`1`) or invalid (`0`).
+  - **Is Valid Signature:** An indicator (`1` or `0`) showing whether the token's signature is valid (`1`) or invalid (`0`). Note that this may also indicate that the algorithm used was not supported or valid. 
 
 - **Example Usage:**
 

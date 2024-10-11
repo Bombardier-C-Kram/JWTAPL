@@ -1,4 +1,4 @@
- R←Test_001(debugFlag batchFlag);⎕TRAP
+ R←Test_001(debugFlag batchFlag);⎕TRAP;j
 ⍝ Test Decode of a Token with a signature
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
  R←T._Failed

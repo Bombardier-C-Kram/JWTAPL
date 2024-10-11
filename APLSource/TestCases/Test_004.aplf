@@ -1,4 +1,4 @@
- R←Test_004(debugFlag batchFlag);⎕TRAP
+ R←Test_004(debugFlag batchFlag);⎕TRAP;header;payload;j
 ⍝ Test Encode Token
 ⍝ *** Watch out: assumes that the instance of Tester2 is called "T".
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')

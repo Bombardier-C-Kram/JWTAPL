@@ -1,4 +1,4 @@
- R←Test_002(debugFlag batchFlag);⎕TRAP
+ R←Test_002(debugFlag batchFlag);⎕TRAP;j
 ⍝ Test Decode with incorrect signature
 ⍝ *** Watch out: assumes that the instance of Tester2 is called "T".
  ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
