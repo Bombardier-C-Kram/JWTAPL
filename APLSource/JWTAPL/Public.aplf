@@ -1,0 +1,4 @@
+ r←Public
+ r←''
+ r,←⊂'Encode'
+ r,←⊂'Decode'
