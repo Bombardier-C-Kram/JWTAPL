@@ -1,0 +1,33 @@
+name: CI for Dyalog APL Project
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Dyalog APL
+        run: |
+          DEBFILE=`curl -o - -s https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=docker.metafile | awk -v v="19.0" '$0~v && /deb/ {print $3}'`
+          curl -o /tmp/dyalog.deb ${DEBFILE}
+          sudo apt install -y /tmp/dyalog.deb
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.X'
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Activate Tatin and Cider
+        run: |
+          chmod +x "${GITHUB_WORKSPACE}/.github/activate.apls" "${GITHUB_WORKSPACE}/.github/test.apls"
+          "${GITHUB_WORKSPACE}/.github/activate.apls"
+          "${GITHUB_WORKSPACE}/.github/test.apls"
+      

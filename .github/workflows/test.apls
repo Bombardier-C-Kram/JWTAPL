@@ -1,0 +1,7 @@
+#!/usr/local/bin/dyalogscript
+⎕PW←500 
+⎕SE.UCMD 'Cider.Version'
+⎕SE.Cider.DEVELOPMENT←1
+opts←⎕NS '' ⋄ opts.(batch checkPackageVersions folder)←1 0 '.'
+⎕SE.Cider.OpenProject opts
+#.Cider.TestCases.RunTestsInBatchMode
