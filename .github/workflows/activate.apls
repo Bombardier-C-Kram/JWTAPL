@@ -1,4 +1,3 @@
-#!/usr/bin/dyalogscript
+#!/usr/bin/dyalogscript DYALOG_INITSESSION=1
 ⎕←'activate'
-(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')
 ⎕SE.UCMD 'Tools.Activate all'
