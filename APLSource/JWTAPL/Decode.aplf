@@ -1,0 +1,24 @@
+ r←secret Decode tkn;h;p;alg;eh;ep;d;s;gsig
+ tkn←'.'(≠⊆⊢)tkn
+ :If 3≠≢tkn
+     (h p)←⎕JSON¨⎕UCS¨base64¨tkn ⍝ This is an unencrypted token, so it has no signature.
+     r←h p 0
+     :Return
+ :EndIf
+
+ (eh ep s)←tkn
+ s←(~∘'=')s
+ (h p)←⎕JSON¨⎕UCS¨base64¨eh ep
+ alg←h.alg
+ (eh ep)←~∘'='¨eh ep
+
+ :If alg≡'HS256'
+     gsig←secret hmacsha256 eh,'.',ep
+     gsig←~∘'='base64 gsig
+ :Else
+     gsig←'' ⍝ We don't support this algorithm, so the signature does not exist
+        ⍝ TODO: Maybe specify that this might be a valid signature, but we don't know?
+        ⍝ I don't see why someone would have a JWT that does not use HS256, but can't assume...
+ :EndIf
+
+ r←h p(gsig≡s) ⍝ Header Payload and IsValidSignature

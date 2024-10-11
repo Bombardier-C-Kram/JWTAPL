@@ -1,0 +1,12 @@
+ digest←key hmacsha256 data;Init;Update;digest;ctx;Digest;dll
+⍝ From Bjørn and Brian.
+⍝ Uses conga ssl shared library.
+⍝ ctx is 3×112
+ dll←1⊃⊃1 ⎕NPARTS⊃⎕NINFO⍠1⊢'conga??ssl*.*',⍨⊃⊃1 ⎕NPARTS 2 ⎕NQ #'GetCommandLineArgs'
+ 'Init'⎕NA dll,'|nettle_hmac_sha256_set_key >I1[336] U8 <T1[]'
+ 'Update'⎕NA dll,'|nettle_hmac_sha256_update =I1[336] U8 <T1[]'
+ 'Digest'⎕NA dll,'|nettle_hmac_sha256_digest =I1[336] U8 >I1[32]'
+
+ ctx←Init(336)(≢key)key
+ ctx←Update ctx(⍴data)data
+ ctx digest←Digest ctx 32 32

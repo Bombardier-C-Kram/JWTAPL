@@ -1,0 +1,24 @@
+ r←secret Encode(h p);eh;ep;gsig
+ ⍝ Encode needs a (optional secret (char vector)), and a header and a payload namespace
+ :If 0={(≢⍵)-(⊂'alg')⍳⍨⍵}h.⎕NL-⍳9
+        ⍝ Header MUST contain an algorithm. Can even be 'none', but must say that
+     ⎕SIGNAL⊂('EN' 510)('Message' 'Algorithm Not Provided')
+ :EndIf
+ (eh ep)←~∘'='¨base64¨⎕UCS¨⎕JSON¨h p ⍝ Encode header and payload
+
+ :If (0<≢secret)∧(h.alg≡'HS256') ⍝ Can support more algorithms in the future
+     gsig←secret hmacsha256 eh,'.',ep
+     gsig←~∘'='base64 gsig
+ :ElseIf (h.alg≡'none')
+        ⍝ This an unsigned token
+     gsig←''
+ :Else
+        ⍝ Algorithm not supported.
+     ⎕SIGNAL⊂('EN' 511)('Message' 'Algorithm Not Supported')
+ :EndIf
+
+ :If gsig≢''
+     r←∊eh,'.',ep,'.'gsig ⍝ header.payload.signature
+ :Else
+     r←eh,'.',ep ⍝ header.payload
+ :EndIf
