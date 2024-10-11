@@ -85,9 +85,4 @@
       r←h p (gsig≡s) ⍝ Header Payload and IsValidSignature
     ∇
 	
-	∇rPublic
-	r←''
-	r,←⊂'Decode'
-	r,←⊂'Encode'
-	∇
 :EndNamespace
