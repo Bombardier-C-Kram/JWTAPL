@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Activate Tatin and Cider
         run: |
-          chmod +x "${GITHUB_WORKSPACE}/../.github/activate.apls" "${GITHUB_WORKSPACE}/.github/test.apls"
-          "${GITHUB_WORKSPACE}/../.github/activate.apls"
-          "${GITHUB_WORKSPACE}/../.github/test.apls"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
       
