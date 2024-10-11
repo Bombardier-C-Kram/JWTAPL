@@ -4,7 +4,7 @@
  r←⍬
  :If flag
      'Runs only  on Windows'Assert'Win'≡##.APLTreeUtils2.GetOperatingSystem ⍬
-     M←⎕SE.MakeHelpers
+     M←##.MakeHelpers
      C←##.CiderConfig
      path←C.HOME,'/',C.CIDER.distributionFolder
      cfg←⎕JSON⍠('Dialect' 'JSON5')⊢⊃⎕NGET C.HOME,'/apl-package.json'
