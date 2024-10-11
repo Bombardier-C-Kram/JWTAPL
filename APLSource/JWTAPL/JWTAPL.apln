@@ -1,4 +1,4 @@
-:Namespace API
+:Namespace JWTAPL
     ∇ digest←key hmacsha256 data;Init;Update;digest;ctx;Digest;dll
       ⍝ From Bjørn and Brian.
       ⍝ Uses conga ssl shared library.
@@ -84,4 +84,10 @@
 
       r←h p (gsig≡s) ⍝ Header Payload and IsValidSignature
     ∇
+	
+	∇rPublic
+	r←''
+	r,←⊂'Decode'
+	r,←⊂'Encode'
+	∇
 :EndNamespace
