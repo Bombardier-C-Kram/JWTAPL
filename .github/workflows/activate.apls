@@ -1,2 +1,4 @@
 #!/usr/bin/dyalogscript
+⎕←'activate'
+(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')
 ⎕SE.UCMD 'Tools.Activate all'
