@@ -5,6 +5,8 @@
 
 ⎕SE.UCMD 'Tools.Activate all'
 
+⎕←'ACTIVATE2'
+
 ⎕←⎕SE.UCMD 'Cider.Version'
 
 ⎕←'Success loading Tatin and Cider'
