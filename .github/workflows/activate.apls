@@ -1,6 +1,7 @@
 #!/usr/bin/dyalogscript DYALOG_INITSESSION=1
 ⎕←'ACTIVATE!'
 ⎕←'Loading Tatin and Cider...'
+⎕←÷0
 ⎕SE.UCMD 'Tools.Activate all'
 ⎕SE.UCMD 'UReset'
 ⎕←'Success loading Tatin and Cider'
