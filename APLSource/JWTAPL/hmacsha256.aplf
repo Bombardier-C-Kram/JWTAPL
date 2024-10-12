@@ -2,7 +2,8 @@
 ⍝ From Bjørn and Brian.
 ⍝ Uses conga ssl shared library.
 ⍝ ctx is 3×112
- dll←1⊃⊃1 ⎕NPARTS⊃⎕NINFO⍠1⊢'conga??ssl*.*',⍨⊃⊃1 ⎕NPARTS 2 ⎕NQ #'GetCommandLineArgs'
+ ⎕IO←0
+ dll←∊1↓⊃1 ⎕NPARTS⊃(⎕ninfo⍠('Wildcard' 1)('Recurse' 1))'/*conga??ssl*.*',⍨(⊢2⎕NQ#'GetEnvironment',⊂)'Dyalog'
  'Init'⎕NA dll,'|nettle_hmac_sha256_set_key >I1[336] U8 <T1[]'
  'Update'⎕NA dll,'|nettle_hmac_sha256_update =I1[336] U8 <T1[]'
  'Digest'⎕NA dll,'|nettle_hmac_sha256_digest =I1[336] U8 >I1[32]'

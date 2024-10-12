@@ -1,6 +1,6 @@
 #!/usr/bin/dyalogscript DYALOG_INITSESSION=1
-⎕SE.(⍎⊃2⎕FIX'/StartupSession.aplf',⍨2⎕NQ#'GetEnvironment' 'DYALOG')
 ⎕PW←500 
+⎕ML ⎕IO←1 0 ⍝ ⎕IO delana est
 ⎕SE.UCMD 'Cider.Version'
 ⎕SE.Cider.DEVELOPMENT←1
 opts←⎕NS '' ⋄ opts.(batch checkPackageVersions folder)←1 0 '.'
