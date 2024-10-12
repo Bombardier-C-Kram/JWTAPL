@@ -1,9 +1,9 @@
-#!/usr/bin/dyalogscript DYALOG_INITSESSION=1
-(1010⌶)3
+#!/usr/bin/dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0
+⍝(1010⌶)1
 
 ⎕←'ACTIVATE!'
 
-⎕SE.(⍎⊃2⎕FIX'/StartupSession.aplf',⍨2⎕NQ#'GetEnvironment' 'DYALOG')
+⍝⎕SE.(⍎⊃2⎕FIX'/StartupSession.aplf',⍨2⎕NQ#'GetEnvironment' 'DYALOG')
 
 ⎕←'Loading Tatin and Cider...'
 
