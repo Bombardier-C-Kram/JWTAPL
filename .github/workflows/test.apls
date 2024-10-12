@@ -5,4 +5,5 @@
 ⎕SE.Cider.DEVELOPMENT←1
 opts←⎕NS '' ⋄ opts.(batch checkPackageVersions folder)←1 0 '.'
 ⎕SE.Cider.OpenProject opts
-#.Cider.TestCases.RunTestsInBatchMode
+r←⍎⎕SE.Cider.RunTests '.'
+⎕off r
