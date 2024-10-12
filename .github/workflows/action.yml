@@ -1,9 +1,9 @@
-name: CI for Dyalog APL Project
+name: JWTAPL CI
 
 on:
   push:
     branches:
-      - '**'
+      - 'main'
   pull_request:
     branches:
       - '**'
