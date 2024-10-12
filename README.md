@@ -1,5 +1,7 @@
 # JWTAPL Library
 
+[![CI for Dyalog APL Project](https://github.com/Bombardier-C-Kram/JWTAPL/actions/workflows/action.yml/badge.svg)](https://github.com/Bombardier-C-Kram/JWTAPL/actions/workflows/action.yml)
+
 JWTAPL is a robust APL library designed for encoding and decoding JSON Web Tokens (JWT). It simplifies the process of handling JWTs within your APL projects, providing straightforward functions to securely manage token creation and verification.
 
 ## Features
