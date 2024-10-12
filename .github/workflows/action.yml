@@ -28,7 +28,5 @@ jobs:
       - name: Activate Tatin and Cider
         run: "${GITHUB_WORKSPACE}/.github/workflows/activate.sh"
       - name: Run Tests
-        run: |
-          set -x
-          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+        run: "${GITHUB_WORKSPACE}/.github/workflows/test.sh"
       
