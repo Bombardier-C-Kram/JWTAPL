@@ -1,5 +1,5 @@
-#!/usr/bin/dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0
-(1010⌶) 1
+#!/usr/bin/dyalogscript DYALOG_INITSESSION=1
+
 ⎕←'ACTIVATE!'
 
 ⎕←'Loading Tatin and Cider...'
