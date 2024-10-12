@@ -4,8 +4,3 @@
 ⎕←⎕SE.UCMD 'Tools.Activate all'
 ⎕←'Success loading Tatin and Cider'
 ⎕off 0
-
-
-
-
-
