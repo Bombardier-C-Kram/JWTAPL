@@ -14,17 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Install Dyalog APL
         run: |
           DEBFILE=`curl -o - -s https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=docker.metafile | awk -v v="19.0" '$0~v && /deb/ {print $3}'`
           curl -o /tmp/dyalog.deb ${DEBFILE}
           sudo apt install -y /tmp/dyalog.deb
+          sudo cp "${GITHUB_WORKSPACE}/dyalogscript" /usr/bin/dyalogscript
+          sudo chmod +x /usr/bin/dyalogscript
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.X'
-      - name: Checkout repository
-        uses: actions/checkout@v3
       - name: Activate Tatin and Cider
         run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"

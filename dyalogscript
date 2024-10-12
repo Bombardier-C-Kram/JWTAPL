@@ -1,0 +1,52 @@
+#!/bin/bash
+#set -x
+## DO NOT CHANGE THIS FILE
+
+INSTALLDIR="/opt/mdyalog/19.0/64/unicode"
+EXE="dyalog"
+
+ARGS=""
+SCRIPT=""
+
+while [ $# -ne 0 ]
+do
+	case $1 in
+	*=*|-*)
+		if [ -z "$SCRIPT" ]; then
+			OPTS="$OPTS $1"
+		else
+			ARGS="$ARGS ${1@Q}" # maintain the quotes
+		fi
+		shift 
+		;;
+	*)
+		if [ -z "$SCRIPT" ]; then
+			SCRIPT=$1
+		else
+			ARGS="$ARGS ${1@Q}"	# maintain the quotes
+		fi
+		shift 
+		;;
+	esac
+done
+
+
+APLT=											
+APLK=											
+export APLT										
+export APLK										
+
+if [ -z "$SCRIPT" ] || [ ! -f "$SCRIPT" ]; then
+	echo "script file \"$SCRIPT\" could not be found" >&2
+	exit 1
+fi
+
+#RIDE cannot currently debug apl #! scripts
+#if [ ! -z $RIDE_INIT ]; then
+#	OPTS="$OPTS RIDE_INIT=$RIDE_INIT"
+#fi
+
+: ${SCRIPTDIR:=$INSTALLDIR}
+export LD_LIBRARY_PATH=${SCRIPTDIR}:${LD_LIBRARY_PATH}					
+
+eval "${SCRIPTDIR}/${EXE}" APLKEYS=\"$INSTALLDIR/aplkeys\" APLTRANS=\"$INSTALLDIR/apltrans\" ${APLT} ${APLK} $OPTS -script \"$SCRIPT\" "$ARGS"
