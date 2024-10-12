@@ -30,6 +30,12 @@ jobs:
           set -x
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
           "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+      - name: Archive Results
+        if: always()
+        uses: actions/upload-artifact@v1
+        with:
+          name: results
+          path: .
       - name: Run Tests
         run: |
           set -x
