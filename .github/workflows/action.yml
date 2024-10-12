@@ -32,5 +32,6 @@ jobs:
           "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Run Tests
         run: |
-          /usr/bin/dyalogscript DYALOG_INITSESSION=1  "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          set -x
+          "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
       
