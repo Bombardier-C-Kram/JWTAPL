@@ -21,8 +21,8 @@ jobs:
           DEBFILE=`curl -o - -s https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=docker.metafile | awk -v v="19.0" '$0~v && /deb/ {print $3}'`
           curl -o /tmp/dyalog.deb ${DEBFILE}
           sudo apt install -y /tmp/dyalog.deb
-          sudo cp "${GITHUB_WORKSPACE}/dyalogscript" /usr/bin/dyalogscript
-          sudo chmod +x /usr/bin/dyalogscript
+          #sudo cp "${GITHUB_WORKSPACE}/dyalogscript" /usr/bin/dyalogscript
+          #sudo chmod +x /usr/bin/dyalogscript
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -30,8 +30,8 @@ jobs:
       - name: Activate Tatin and Cider
         run: |
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
-          dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0 "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          /usr/bin/dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0 "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Run Tests
         run: |
-          dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0 "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          /usr/bin/dyalogscript DYALOG_INITSESSION=1 DyalogStartup_X=0 "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
       
