@@ -32,7 +32,7 @@ jobs:
           "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Archive Results
         if: always()
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: results
           path: .
