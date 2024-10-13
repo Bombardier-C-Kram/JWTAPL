@@ -31,12 +31,13 @@ jobs:
         run: |
           unset DISPLAY
           cd "${GITHUB_WORKSPACE}"
-          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls" "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
           xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Run Tests
         run: |
           unset DISPLAY
           cd "${GITHUB_WORKSPACE}"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
           xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
 
   build:
@@ -55,6 +56,12 @@ jobs:
           dotnet-version: '8.X'
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Activate Tatin and Cider
+        run: |
+          unset DISPLAY
+          cd "${GITHUB_WORKSPACE}"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Build Project
         run: |
           echo "Building the project..."
