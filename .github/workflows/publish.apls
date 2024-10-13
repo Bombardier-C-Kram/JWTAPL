@@ -1,0 +1,14 @@
+#!/usr/bin/dyalogscript DYALOG_INITSESSION=1
+⎕PW←500
+⎕SE.(⍎⊃2⎕FIX'/StartupSession.aplf',⍨2⎕NQ#'GetEnvironment' 'DYALOG')
+⎕ML ⎕IO←1 0 ⍝ ⎕IO delana est
+⎕SE.UCMD 'Cider.Version'
+⎕SE.Cider.DEVELOPMENT←1
+opts←⎕NS '' ⋄ opts.(batch checkPackageVersions folder)←1 0 '.'
+⎕SE.Cider.OpenProject opts
+projectNs←⍎⊃⎕SE.Cider.ListOpenProjects 0
+⎕CS projectNs
+⎕←'Building...'
+⎕←⍎⎕SE.Cider.RunMake '.'
+⎕←'Built!'
+⎕off 0

@@ -1,20 +1,27 @@
  {r}←{batch}Make flag;path;cfg;M;C;version;parms;zipFilename
 ⍝ "Make" a new version of this project.
-⍝ If called by a program rather executed by a human specify a 1 as left arguments: not questions are asked then.
+⍝ If called by a program rather executed by a human specify a 1 as left arguments: no questions are asked then.
  r←⍬
+⎕←'abc'
+batch←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'batch'
+'Left argument must be a Boolean'Assert(⊂batch)∊0 1
  :If flag
-     'Runs only  on Windows'Assert'Win'≡##.APLTreeUtils2.GetOperatingSystem ⍬
+     ⍝'Runs only  on Windows'Assert'Win'≡##.APLTreeUtils2.GetOperatingSystem ⍬
      M←##.MakeHelpers
      C←##.CiderConfig
      path←C.HOME,'/',C.CIDER.distributionFolder
      cfg←⎕JSON⍠('Dialect' 'JSON5')⊢⊃⎕NGET C.HOME,'/apl-package.json'
-     version←M.CompileVersionNumberPattern cfg
+     :If ('true'≡(⊢2⎕NQ#'GetEnvironment',⊂)'BATCH')∨batch
+        version←cfg.version ⍝ Just don't change it then.
+     :Else
+        version←M.CompileVersionNumberPattern cfg
+     :EndIf
      M.RecreateFolder path
      {}⎕SE.Tatin.CreateAPIfromCFG ##.JWTAPL cfg
      parms←⎕SE.Tatin.CreateBuildParms C.HOME
      parms.targetPath←path
      parms.version←version
-     zipFilename←⎕SE.Tatin.BuildPackage parms
-     ⎕←'*** New version build successfully:',M.CR,'   ',zipFilename
+     r←⎕SE.Tatin.BuildPackage parms
+     ⎕←'*** New version build successfully:',M.CR,'   ',r
  :EndIf
 ⍝Done

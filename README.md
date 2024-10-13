@@ -29,10 +29,10 @@ After installation, you can access the primary functions of JWTAPL: `Encode` and
 To encode a JWT, define your header and payload as namespaces and use the `Encode` function with your secret key.
 
 ```apl
-⎕NS h ← ''
+h ← ⎕NS ''
 h.(alg typ) ← 'HS256' 'JWT'
 
-⎕NS p ← ''
+p ← ⎕NS ''
 p.(name group) ← 'John Doe' 'admin'
 
 secret ← 'mysecret'
@@ -55,10 +55,10 @@ token ← secret JWTAPL.Encode h p
   If you set the algorithm as 'none' in the header, `Encode` will generate an unencrypted token. Unencrypted tokens consist only of the header and payload without a signature.
 
   ```apl
-  ⎕NS h ← ''
+  h ← ⎕NS ''
   h.(alg typ) ← 'none' 'JWT'  ⍝ 'none' algorithm provided
 
-  ⎕NS p ← ''
+  p ← ⎕NS ''
   p.(name group) ← 'John Doe' 'admin'
 
   token ← '' JWTAPL.Encode h p ⍝ The secret provided to the function is not used in this case. 
