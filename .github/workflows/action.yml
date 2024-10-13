@@ -78,7 +78,8 @@ jobs:
   publish:
     name: Publish
     needs: build
-    runs-on: ubuntu-latest # if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
     steps:
       - name: Install Dyalog APL
         run: |
@@ -104,6 +105,7 @@ jobs:
       - name: Publish Artifacts
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
+          TATIN_API_KEY: ${{ secrets.TATIN_API_KEY }}
         run: |
          export BATCH=true
           # Use $RELEASE_VERSION in your publish steps?
