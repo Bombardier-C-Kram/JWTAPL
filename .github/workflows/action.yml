@@ -32,13 +32,13 @@ jobs:
           unset DISPLAY
           cd "${GITHUB_WORKSPACE}"
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
-          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Run Tests
         run: |
           unset DISPLAY
           cd "${GITHUB_WORKSPACE}"
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
-          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/test.apls"
 
   build:
     name: Build
@@ -61,19 +61,18 @@ jobs:
           unset DISPLAY
           cd "${GITHUB_WORKSPACE}"
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
-          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
       - name: Build Project
         run: |
           unset DISPLAY
           export BATCH=true
           cd "${GITHUB_WORKSPACE}"
           chmod +x "${GITHUB_WORKSPACE}/.github/workflows/build.apls"
-          xvfb-run "${GITHUB_WORKSPACE}/.github/workflows/build.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/build.apls"
       - name: Get Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: package
-          path: Dist/*.zip
+          path: Dist/*-*-*.zip # Like bkaw-JWTAPL-2.1.0.zip
 
   publish:
     name: Publish

@@ -10,6 +10,6 @@ opts←⎕NS '' ⋄ opts.(batch checkPackageVersions folder)←1 0 '.'
 projectNs←⍎⊃⎕SE.Cider.ListOpenProjects 0
 ⎕CS projectNs
 ⎕←'Building...'
-⎕←⍎⎕SE.Cider.RunMake '.'
+⎕←r←⍎⎕SE.Cider.RunMake '.'
 ⎕←'Built!'
 ⎕off 0
