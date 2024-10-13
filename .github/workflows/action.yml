@@ -72,13 +72,13 @@ jobs:
       - name: Get Build Artifacts
         uses: actions/upload-artifact@v4
         with:
+          name: package
           path: Dist/*-*-*.zip # Like bkaw-JWTAPL-2.1.0.zip
 
   publish:
     name: Publish
     needs: build
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+    runs-on: ubuntu-latest # if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
     steps:
       - name: Install Dyalog APL
         run: |
@@ -91,15 +91,24 @@ jobs:
           dotnet-version: '8.X'
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Get Release Version
-        id: get_version
+      - name: Activate Tatin and Cider
         run: |
-          echo "Release version is: ${{ github.event.release.tag_name }}"
+          unset DISPLAY
+          cd "${GITHUB_WORKSPACE}"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/activate.apls"
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: package
       - name: Publish Artifacts
         env:
           RELEASE_VERSION: ${{ github.event.release.tag_name }}
         run: |
          export BATCH=true
-          # Use $RELEASE_VERSION in your publish steps
+          # Use $RELEASE_VERSION in your publish steps?
           echo "Publishing the build artifacts for version $RELEASE_VERSION..."
-          # Add your publish commands here, utilizing the RELEASE_VERSION variable as needed
+          cd "${GITHUB_WORKSPACE}"
+          chmod +x "${GITHUB_WORKSPACE}/.github/workflows/publish.apls"
+          xvfb-run -a "${GITHUB_WORKSPACE}/.github/workflows/publish.apls"
+          
