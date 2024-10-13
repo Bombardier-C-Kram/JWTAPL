@@ -10,6 +10,6 @@
 ⍝⎕CS projectNs
 package←∊⊃1 ⎕NPARTS⊃(⎕ninfo⍠('Wildcard' 1))'*.zip'
 ⎕←'publishing: ',package
-⎕SE.Tatin.PublishPackage (package '[tatin-test]'
+⎕SE.Tatin.PublishPackage (package '[tatin-test]')
 ⎕←'Built!'
 ⎕off 0

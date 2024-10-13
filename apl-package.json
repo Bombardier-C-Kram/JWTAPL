@@ -19,5 +19,5 @@
   source: "APLSource/JWTAPL",
   tags: "jwt,json,web,token",
   userCommandScript: "",
-  version: "2.1.0+15",
+  version: "2.1.1+16",
 }
